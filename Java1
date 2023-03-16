@@ -1,0 +1,99 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package java_selfpractice1;
+
+/**
+ *
+ * @author Renn
+ */
+import java.util.Scanner;
+
+
+public class BankingProgram {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        System.out.print("Enter your account number: ");
+        String accountNumber = input.nextLine();
+        
+        System.out.print("Enter your initial balance: ");
+        double balance = input.nextDouble();
+        
+        BankAccount myAccount = new BankAccount(accountNumber, balance);
+        
+        boolean done = false;
+        
+        while (!done) {
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Check balance");
+            System.out.println("4. Quit");
+            System.out.print("Enter your choice: ");
+            
+            int choice = input.nextInt();
+            double amount;
+            
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the amount to deposit: ");
+                    amount = input.nextDouble();
+                    myAccount.deposit(amount);
+                    System.out.println("Deposit successful.");
+                    break;
+                case 2:
+                    System.out.print("Enter the amount to withdraw: ");
+                    amount = input.nextDouble();
+                    if (amount <= myAccount.getBalance()) {
+                        myAccount.withdraw(amount);
+                        System.out.println("Withdrawal successful.");
+                    } else {
+                        System.out.println("Insufficient funds.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("Your current balance is: " + myAccount.getBalance());
+                    break;
+                case 4:
+                    System.out.println("Goodbye!");
+                    done = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
+            }
+            
+            System.out.println();
+        }
+        
+        input.close();
+    }
+}
+
+class BankAccount {
+    private String accountNumber;
+    private double balance;
+    
+    public BankAccount(String accountNumber, double balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+    
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    public void deposit(double amount) {
+        balance += amount;
+    }
+    
+    public void withdraw(double amount) {
+        balance -= amount;
+    }
+}
+
